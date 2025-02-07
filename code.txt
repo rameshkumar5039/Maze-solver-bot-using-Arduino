@@ -1,0 +1,170 @@
+const int in1=3; 
+const int in2=4;  
+const int enA=9; 
+const int in3=13; 
+const int in4=12; 
+const int enB=10; 
+const int trig1=A0;//centre 
+const int echo1=A1; 
+const int trig2=A2;//left 
+const int echo2=A3; 
+const int trig3=A4;//right 
+const int echo3=A5;  
+long distance1; 
+long time1; 
+long distance2;  
+long time2; 
+long distance3; 
+long time3; 
+//int obsdist; 
+void setup() { 
+// put your setup code here, to run once: 
+pinMode(in1,OUTPUT); 
+pinMode(in2,OUTPUT); 
+pinMode(in3,OUTPUT);  
+pinMode(in4,OUTPUT); 
+pinMode(enA,OUTPUT); 
+pinMode (enB,OUTPUT); 
+pinMode(trig1,OUTPUT);  
+pinMode(echo1,INPUT);  
+pinMode(trig2,OUTPUT);  
+pinMode(echo2,INPUT); 
+pinMode(trig3,OUTPUT); 
+pinMode(echo3,INPUT); 
+Serial.begin(9600); 
+} 
+void go_straight(){ 
+digitalWrite(in1,LOW);  
+digitalWrite(in2,HIGH);  
+analogWrite(enA,60); 
+digitalWrite(in3,LOW); 
+digitalWrite(in4,HIGH); 
+analogWrite(enB,60); 
+delay(150);//need to be checked 
+} 
+void turn_left() { 
+//Stop left and run only right tyre  
+digitalWrite(in1,LOW); 
+digitalWrite(in2,LOW);  
+analogWrite(enA,0);  
+digitalWrite(in3,LOW); 
+digitalWrite(in4,HIGH); 
+analogWrite(enB,60); 
+delay(700); 
+digitalWrite(in1,LOW); 
+digitalWrite(in2,LOW);  
+analogWrite(enA,0);  
+digitalWrite(in3,LOW);  
+digitalWrite(in4,LOW);  
+analogWrite(enB,0); 
+delay(500);//need to be checked 
+void turn_right() { 
+//Stop right and run only left tyre  
+digitalWrite(in1,LOW);  
+digitalWrite(in2,HIGH); 
+analogWrite(enA,60);  
+digitalWrite(in3,LOW); 
+digitalWrite(in4,LOW); 
+analogWrite(enB,0);  
+delay(700);//need to be checked  
+digitalWrite(in1,LOW); 
+digitalWrite(in2,LOW); 
+analogWrite(enA,0);  
+digitalWrite(in3,LOW);  
+digitalWrite(in4,LOW); 
+analogWrite(enB,0);  
+delay(500); 
+} 
+void turn_180() { 
+//Stop left and run only right 
+tyre(backwards)  
+digitalWrite(in1,LOW);  
+digitalWrite(in2,LOW);   
+analogWrite(enA,0);   
+digitalWrite(in3,HIGH);  
+digitalWrite(in4,LOW);  
+analogWrite(enB,60); 
+delay(1600);//need to be checked  
+digitalWrite(in1,LOW);  
+digitalWrite(in2,LOW); 
+analogWrite(enA,0);  
+digitalWrite(in3,LOW);  
+digitalWrite(in4,LOW);  
+analogWrite(enB,0); 
+delay(500); 
+} 
+void stop_() { 
+//Stop left and run only right 
+tyre(backwards)  
+digitalWrite(in1,LOW);  
+digitalWrite(in2,LOW); 
+analogWrite(enA,0); 
+digitalWrite(in3,LOW);  
+digitalWrite(in4,LOW);  
+analogWrite(enB,0);  
+delay(5000);//need to be checked 
+} 
+void loop() { 
+//Measure distance of obstacle from front 
+sensor  
+digitalWrite(trig1,HIGH);  
+delayMicroseconds(10);  
+digitalWrite(trig1,LOW); 
+time1=pulseIn(echo1,HIGH); 
+distance1=time1*0.017; 
+Serial.print("distance1 in cm"); 
+Serial.println(distance1);  
+digitalWrite(trig2,HIGH); 
+delayMicroseconds(10); 
+digitalWrite(trig2,LOW); 
+time2=pulseIn(echo2,HIGH); 
+distance2=time2*0.017;  
+Serial.print("distance2 in cm"); 
+Serial.println(distance2); 
+//Measure distance of obstacle from right 
+sensor digitalWrite(trig3,HIGH);  
+delayMicroseconds(10); 
+digitalWrite(trig3,LOW);  
+time3=pulseIn(echo3,HIGH);  
+distance3=time3*0.017; 
+Serial.print("distance3 in cm"); 
+Serial.println(distance3); 
+if (distance3>17 && distance2>17 
+&&distance1>17){ 
+// Stops in OPEN SPACE  
+stop_(); 
+} 
+else if(distance3>17 || distance3==0){ 
+//If right side is open to move, turn right 
+digitalWrite(in1,LOW); 
+digitalWrite(in2,LOW); 
+analogWrite(enA,0); 
+digitalWrite(in3,LOW); 
+digitalWrite(in4,LOW);  
+analogWrite(enB,0); 
+delay(1000);  
+turn_right(); 
+} 
+else if (distance1>25 || distance1==0 ){ 
+//If right side is closed and straight 
+route is free to move, go straight 
+go_straight(); 
+} 
+else if ( (distance2>17 || distance2 ==0)){ 
+//If right side and straight both are 
+closed and left side is free to move, turn 
+left.  
+digitalWrite(in1,LOW); 
+digitalWrite(in2,LOW); 
+analogWrite(enA,0);  
+digitalWrite(in3,LOW); 
+digitalWrite(in4,LOW); 
+analogWrite(enB,0); 
+delay(1000); 
+turn_left(); 
+} 
+else { 
+//If all sides are closed, turn backwards 
+turn_180(); 
+} 
+} 
