@@ -1,8 +1,37 @@
-# Autonomous-maze-solver-bot-using-Arduino
+# Autonomous Maze Solver Bot using Arduino  
 
-The Autonomous Maze Solver Bot is a self-navigating robot designed to explore and solve mazes without human intervention.
-The bot is built using an Arduino microcontroller, ultrasonic sensors, and DC motors controlled via a motor driver module.
-It uses ultrasonic sensors to detect obstacles and determine the best path forward.
-The control algorithm makes real-time decisions, allowing the bot to move straight, turn left, turn right, or make a U-turn based on its surroundings.
-The pathfinding logic ensures the robot reaches the exit efficiently.
-This project demonstrates robotics, embedded systems, and autonomous navigation techniques, making it suitable for applications in robotics competitions, automation, and AI-driven navigation systems.
+## Overview  
+This project develops an autonomous robot that navigates through a maze without human intervention. Using ultrasonic sensors and motor control, the bot detects obstacles and makes real-time pathfinding decisions. The system is designed for robotics applications, automation projects, and learning about embedded systems.  
+
+## Features  
+- Navigate mazes autonomously using sensor-based decision-making.  
+- Real-time obstacle detection with ultrasonic sensors.  
+- Efficient motor control using an L298N driver module.  
+- Simple logic-based pathfinding without external guidance.  
+- Adjustable speed and delay parameters for fine-tuning movements.  
+
+## Hardware Components  
+- **Microcontroller:** Arduino Uno (or compatible)  
+- **Sensors:** HC-SR04 Ultrasonic Sensors (for obstacle detection)  
+- **Motor Driver:** L298N Motor Driver Module  
+- **Motors:** DC Motors with wheels  
+- **Power Source:** Battery pack for portable operation  
+- **Chassis:** Custom or pre-built robotic frame  
+
+## Programming Language  
+- C++ (Arduino)  
+
+## Libraries  
+- Standard Arduino libraries for motor control and ultrasonic sensors  
+
+## Workflow  
+1. **Initialization** – Arduino sets up sensor pins, motor driver, and serial communication.  
+2. **Data Collection** – Ultrasonic sensors measure distances from nearby obstacles.  
+3. **Decision Making** – Pathfinding logic determines the next movement based on sensor input.  
+4. **Motor Control** – Commands are sent to the motor driver to execute movements.  
+5. **Continuous Looping** – The bot repeats the process until it reaches the exit or a stopping condition.  
+
+## Key Insights  
+- The bot can autonomously navigate unknown environments with real-time obstacle detection.  
+- Simple logic-based decision-making allows for efficient movement through a maze.  
+- Sensor placement and tuning play a crucial role in performance. .
